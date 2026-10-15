@@ -6,8 +6,6 @@
 }
  
 body {
-  /* Set line height to 1.5 times the font size
-     and use the OS's UI font as the website font */
   font: 100%/1.5 system-ui;
   max-width: 100ch;
   margin-inline: auto;
@@ -40,7 +38,7 @@ nav a {
  
 nav a.current {
   border-bottom: 0.4em solid oklch(80% 3% 200);
-  padding-bottom: 0.1em; /* 0.5em - 0.4em, so height doesn't change */
+  padding-bottom: 0.1em;
 }
  
 nav a:hover {
