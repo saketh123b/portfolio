@@ -85,4 +85,24 @@ form button {
 .projects h2 {
   margin: 0;
 }
- 
+
+html {
+  color-scheme: light dark;
+}
+
+nav {
+  --border-color: oklch(50% 10% 200 / 40%);
+  border-bottom-color: var(--border-color);
+}
+
+.color-scheme {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 80%;
+  font-family: inherit;
+}
+
+input, textarea, button, select {
+  font: inherit;
+}
