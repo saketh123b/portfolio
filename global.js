@@ -8,13 +8,14 @@ function $$(selector, context = document) {
 const BASE_PATH =
   location.hostname === 'localhost' || location.hostname === '127.0.0.1'
     ? '/'
-    : '/website/'; // <-- change to YOUR repo name, with slashes
+    : '/https://github.com/saketh123b/portfolio/'; // <-- change to YOUR repo name, with slashes
 
 let pages = [
   { url: '', title: 'Home' },
   { url: 'projects/', title: 'Projects' },
-  // add the rest of your pages, e.g.:
-  // { url: 'https://github.com/yourusername', title: 'GitHub' },
+    { url: 'resume/', title: 'Resume' },
+    { url: 'contacts/', title: 'Contact' },
+    { url: 'https://github.com/yourusername', title: 'GitHub' },
 ];
 
 let nav = document.createElement('nav');
