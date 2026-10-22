@@ -18,6 +18,8 @@ let pages = [
     { url: 'https://github.com/yourusername', title: 'GitHub' },
 ];
 
+let url = !p.url.startsWith("http") ? BASE_PATH + p.url : p.url;
+
 let nav = document.createElement('nav');
 document.body.prepend(nav);
 
