@@ -15,7 +15,7 @@ let pages = [
   { url: 'projects/', title: 'Projects' },
     { url: 'resume/', title: 'Resume' },
     { url: 'contacts/', title: 'Contact' },
-    { url: 'https://github.com/yourusername', title: 'GitHub' },
+    { url: 'https://github.com/saketh123b', title: 'GitHub' },
 ];
 
 let url = !p.url.startsWith("http") ? BASE_PATH + p.url : p.url;
