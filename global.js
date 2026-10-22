@@ -8,17 +8,15 @@ function $$(selector, context = document) {
 const BASE_PATH =
   location.hostname === 'localhost' || location.hostname === '127.0.0.1'
     ? '/'
-    : '/https://github.com/saketh123b/portfolio/'; // <-- change to YOUR repo name, with slashes
+    : '/portfolio/';
 
 let pages = [
   { url: '', title: 'Home' },
   { url: 'projects/', title: 'Projects' },
-    { url: 'resume/', title: 'Resume' },
-    { url: 'contacts/', title: 'Contact' },
-    { url: 'https://github.com/saketh123b', title: 'GitHub' },
+  { url: 'resume/', title: 'Resume' },
+  { url: 'contacts/', title: 'Contact' },
+  { url: 'https://github.com/saketh123b', title: 'GitHub' },
 ];
-
-let url = !p.url.startsWith("http") ? BASE_PATH + p.url : p.url;
 
 let nav = document.createElement('nav');
 document.body.prepend(nav);
@@ -28,7 +26,8 @@ for (let p of pages) {
   let title = p.title;
 
   url = !url.startsWith('http') ? BASE_PATH + url : url;
-
+  // ...rest of your loop stays the same
+}
   let a = document.createElement('a');
   a.href = url;
   a.textContent = title;
