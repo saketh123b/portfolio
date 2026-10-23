@@ -1,6 +1,3 @@
-import { fetchJSON, renderProjects } from '../global.js';
-
-
 console.log('IT’S ALIVE!');
 
 function $$(selector, context = document) {
@@ -11,14 +8,14 @@ function $$(selector, context = document) {
 const BASE_PATH =
   location.hostname === 'localhost' || location.hostname === '127.0.0.1'
     ? '/'
-    : '/https://github.com/saketh123b/portfolio/'; // <-- change to YOUR repo name, with slashes
+    : '/portfolio/'; // your repo name
 
 let pages = [
   { url: '', title: 'Home' },
   { url: 'projects/', title: 'Projects' },
-    { url: 'resume/', title: 'Resume' },
-    { url: 'contacts/', title: 'Contact' },
-    { url: 'https://github.com/saketh123b', title: 'GitHub' },
+  { url: 'resume/', title: 'Resume' },
+  { url: 'contacts/', title: 'Contact' },
+  { url: 'https://github.com/saketh123b', title: 'GitHub' },
 ];
 
 let nav = document.createElement('nav');
@@ -38,7 +35,6 @@ for (let p of pages) {
     'current',
     a.host === location.host && a.pathname === location.pathname,
   );
-  a.toggleAttribute('target', a.host !== location.host);
   if (a.host !== location.host) a.target = '_blank';
 
   nav.append(a);
@@ -74,22 +70,48 @@ if ('colorScheme' in localStorage) {
   setColorScheme(localStorage.colorScheme);
 }
 
+// ---------- Lab 4: data helpers ----------
 export async function fetchJSON(url) {
   try {
-    // Fetch the JSON file from the given URL
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Failed to fetch projects: ${response.statusText}`);
     }
-    const data = await response.json();
-    return data;
-
-    
+    return await response.json();
   } catch (error) {
     console.error('Error fetching or parsing JSON data:', error);
   }
 }
 
-const projects = await fetchJSON('../lib/projects.json');
-const projectsContainer = document.querySelector('.projects');
-renderProjects(projects, projectsContainer, 'h2');
+export function renderProjects(projects, containerElement, headingLevel = 'h2') {
+  if (!(containerElement instanceof Element)) {
+    console.error('renderProjects: invalid container element');
+    return;
+  }
+
+  if (!/^h[1-6]$/.test(headingLevel)) {
+    console.warn(`Invalid headingLevel "${headingLevel}", using h2`);
+    headingLevel = 'h2';
+  }
+
+  containerElement.innerHTML = '';
+
+  if (!Array.isArray(projects) || projects.length === 0) {
+    containerElement.innerHTML = '<p>No projects to display yet.</p>';
+    return;
+  }
+
+  for (const project of projects) {
+    const article = document.createElement('article');
+    article.innerHTML = `
+      <${headingLevel}>${project.title ?? 'Untitled'}</${headingLevel}>
+      <img src="${project.image ?? ''}" alt="${project.title ?? 'Project image'}">
+      <p>${project.description ?? ''}</p>
+    `;
+    containerElement.appendChild(article);
+  }
+}
+
+export async function fetchGitHubData(username) {
+  return fetchJSON(`https://api.github.com/users/${username}`);
+}
