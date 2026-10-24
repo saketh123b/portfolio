@@ -33,4 +33,42 @@
       "title": "SQL Database Project",
       "year": "2025",
       "image": "https://dsc106.com/labs/lab02/images/empty.svg",
-      "description": "Designing tables and writing queries to answer questions
+      "description": "Designing tables and writing queries to answer questions about a relational dataset."
+    },
+    {
+      "title": "Python Data Structures",
+      "year": "2025",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Implementations of lists, stacks, queues, and hash tables in Python."
+    },
+    {
+      "title": "Statistics Simulation",
+      "year": "2024",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Monte Carlo simulations to explore sampling distributions and the law of large numbers."
+    },
+    {
+      "title": "Machine Learning Classifier",
+      "year": "2024",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Training and comparing classification models on a labeled dataset."
+    },
+    {
+      "title": "Web Scraping Tool",
+      "year": "2024",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "A script that collects and organizes public data from the web."
+    },
+    {
+      "title": "Intro Programming Assignment",
+      "year": "2023",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Early coursework covering loops, functions, and basic algorithms."
+    },
+    {
+      "title": "Class Group Project",
+      "year": "2023",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "A team project on data collection, analysis, and presenting results."
+    }
+  ]
