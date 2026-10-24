@@ -8,7 +8,7 @@ function $$(selector, context = document) {
 const BASE_PATH =
   location.hostname === 'localhost' || location.hostname === '127.0.0.1'
     ? '/'
-    : '/portfolio/'; 
+    : '/portfolio/'; // must match your repo name exactly
 
 let pages = [
   { url: '', title: 'Home' },
@@ -20,6 +20,9 @@ let pages = [
 
 let nav = document.createElement('nav');
 document.body.prepend(nav);
+
+// Treat /folder/ and /folder/index.html as the same page
+const normalize = (path) => path.replace(/index\.html$/, '');
 
 for (let p of pages) {
   let url = p.url;
@@ -33,7 +36,8 @@ for (let p of pages) {
 
   a.classList.toggle(
     'current',
-    a.host === location.host && a.pathname === location.pathname,
+    a.host === location.host &&
+      normalize(a.pathname) === normalize(location.pathname),
   );
   if (a.host !== location.host) a.target = '_blank';
 
