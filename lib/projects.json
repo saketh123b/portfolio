@@ -1,0 +1,36 @@
+[
+    {
+      "title": "Personal Portfolio Website",
+      "year": "2026",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "This site, built with HTML, CSS, and JavaScript and hosted on GitHub Pages."
+    },
+    {
+      "title": "Probability Problem Sets",
+      "year": "2026",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Coursework on discrete random variables, including Bernoulli, binomial, and geometric distributions."
+    },
+    {
+      "title": "Data Visualization Lab",
+      "year": "2026",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Interactive visualizations built with JavaScript for DSC 106."
+    },
+    {
+      "title": "Exploratory Data Analysis",
+      "year": "2025",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Cleaning and analyzing a real-world dataset with pandas and matplotlib."
+    },
+    {
+      "title": "Linear Regression Model",
+      "year": "2025",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Predicting outcomes from numeric features and evaluating the fit."
+    },
+    {
+      "title": "SQL Database Project",
+      "year": "2025",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Designing tables and writing queries to answer questions
