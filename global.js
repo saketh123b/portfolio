@@ -5,10 +5,10 @@ function $$(selector, context = document) {
 }
 
 // ---------- Step 3: navigation menu ----------
-const BASE_PATH = "/"
+const BASE_PATH =
   location.hostname === 'localhost' || location.hostname === '127.0.0.1'
     ? '/'
-    : '/portfolio/'; // your repo name
+    : '/portfolio/'; 
 
 let pages = [
   { url: '', title: 'Home' },
