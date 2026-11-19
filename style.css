@@ -186,6 +186,11 @@ circle {
   transition: 200ms;
   transform-origin: center;
   transform-box: fill-box;
+  transition: all 200ms;
+
+  @staring-style {
+    r: 0;
+  }
 }
 
 circle:hover {
@@ -226,3 +231,4 @@ circle.selected {
   flex-basis: 100%;
   text-align: right;
 }
+
