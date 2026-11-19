@@ -199,6 +199,18 @@ function createBrushSelector(svg, width, height) {
 
 /* ---------- Step 2-4: scatterplot ---------- */
 function renderScatterPlot(data, commits) {
+  svg
+    .append('g')
+    .attr('transform', `translate(0, ${usableArea.bottom})`)
+    .attr('class', 'x-axis') // new line to mark the g tag
+    .call(xAxis);
+
+  svg
+    .append('g')
+    .attr('transform', `translate(${usableArea.left}, 0)`)
+    .attr('class', 'y-axis') // just for consistency
+    .call(yAxis);
+
   const width = 1000;
   const height = 600;
   const margin = { top: 10, right: 10, bottom: 30, left: 40 };
