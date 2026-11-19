@@ -246,7 +246,6 @@ function updateScatterPlot(data, filteredCommits) {
     );
     gridlines.selectAll('.tick line').attr('stroke', (d) => colorForHour(d));
 
-    // Y axis
     svg
       .append('g')
       .attr('transform', `translate(${usableArea.left}, 0)`)
@@ -256,7 +255,6 @@ function updateScatterPlot(data, filteredCommits) {
           .tickFormat((d) => String(d % 24).padStart(2, '0') + ':00'),
       );
 
-    // Empty groups that get filled on every update
     svg
       .append('g')
       .attr('class', 'x-axis')
@@ -268,7 +266,6 @@ function updateScatterPlot(data, filteredCommits) {
     createBrushSelector(svg, width, height);
   }
 
-  // ---- Runs on every update ----
   xScale = d3
     .scaleTime()
     .domain(d3.extent(filteredCommits, (d) => d.datetime))
@@ -279,11 +276,9 @@ function updateScatterPlot(data, filteredCommits) {
   xAxisGroup.selectAll('*').remove();
   xAxisGroup.call(d3.axisBottom(xScale));
 
-  // Radius scale uses ALL commits so dot sizes don't jump while sliding
   const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
   const rScale = d3.scaleSqrt().domain([minLines, maxLines]).range([2, 30]);
 
-  // Largest first so small dots end up on top and stay hoverable
   const sortedCommits = d3.sort(filteredCommits, (d) => -d.totalLines);
 
   svg
@@ -309,12 +304,10 @@ function updateScatterPlot(data, filteredCommits) {
     });
 }
 
-/* ---------- Run ---------- */
 const data = await loadData();
 commits = processCommits(data);
 filteredCommits = commits;
 
-/* ---------- Step 6: time slider ---------- */
 let commitProgress = 100;
 
 let timeScale = d3
@@ -328,19 +321,15 @@ const slider = document.getElementById('commit-slider');
 const sliderTime = document.getElementById('slider-time');
 
 function onTimeSliderChange() {
-  // 1. update commitProgress from the slider value
   commitProgress = Number(slider.value);
 
-  // 2. update commitMaxTime using the scale's invert()
   commitMaxTime = timeScale.invert(commitProgress);
 
-  // 3. show the time in the <time> element
   sliderTime.textContent = commitMaxTime.toLocaleString('en', {
     dateStyle: 'long',
     timeStyle: 'short',
   });
 
-  // 4. filter commits and redraw the stats and the plot
   filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
   const filteredData = filteredCommits.flatMap((d) => d.lines);
 
