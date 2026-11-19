@@ -304,3 +304,20 @@ commits = processCommits(data);
 
 renderCommitInfo(data, commits);
 renderScatterPlot(data, commits);
+
+function onTimeSliderChange() {
+  // 1. update commitProgress from the slider value
+  commitProgress = Number(slider.value);
+
+  // 2. update commitMaxTime using the scale's invert()
+  commitMaxTime = timeScale.invert(commitProgress);
+
+  // 3. show the time in the <time> element
+  sliderTime.textContent = commitMaxTime.toLocaleString('en', {
+    dateStyle: 'long',
+    timeStyle: 'short',
+  });
+}
+
+slider.addEventListener('input', onTimeSliderChange);
+onTimeSliderChange(); // initialize on page load
