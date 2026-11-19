@@ -210,3 +210,19 @@ circle.selected {
   stroke-dasharray: 5 3;
   animation: marching-ants 2s linear infinite;
 }
+
+.slider-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 1em;
+}
+
+.slider-label input {
+  flex: 1;
+}
+
+.slider-label time {
+  flex-basis: 100%;
+  text-align: right;
+}
