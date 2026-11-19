@@ -328,3 +328,4 @@ function onTimeSliderChange() {
 
 slider.addEventListener('input', onTimeSliderChange);
 onTimeSliderChange();
+
