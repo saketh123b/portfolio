@@ -317,7 +317,8 @@ function onTimeSliderChange() {
     dateStyle: 'long',
     timeStyle: 'short',
   });
+  console.log(commitProgress, commitMaxTime, sliderTime);
 }
 
 slider.addEventListener('input', onTimeSliderChange);
-onTimeSliderChange(); // initialize on page load
+onTimeSliderChange(); 
