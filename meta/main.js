@@ -141,6 +141,12 @@ function renderSelectionCount(selection) {
   const selectedCommits = selection
     ? filteredCommits.filter((d) => isCommitSelected(selection, d))
     : [];
+    let lines = filteredCommits.flatMap((d) => d.lines);
+    let files = d3
+    .grouplines(lines, (d) => d.file)
+    .map(([name,lines])=> {
+      return {name, lines };
+    })
 
   document.querySelector('#selection-count').textContent = `${
     selectedCommits.length || 'No'
@@ -339,3 +345,17 @@ function onTimeSliderChange() {
 
 slider.addEventListener('input', onTimeSliderChange);
 onTimeSliderChange(); // draws everything the first time
+
+let filesContainer = d3
+.select("#files")
+.selectAll("div")
+.data(files, (d) => d.name)
+.join((enter) =>
+  enter.append('div').call((div) => {
+    div.append('dt').append('code');
+    div.append('dd');
+  }),
+);
+
+filesContainer.select("dt > code").text((d) => d.name);
+filesContainer.select("dd").text((d) => "${d.lines.length} lines");
