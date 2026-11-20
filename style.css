@@ -235,36 +235,31 @@ circle.selected {
 #files {
   display: grid;
   grid-template-columns: 1fr 4fr;
-
-  > div {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: subgrid;
-  }
-
-  dt {
-    grid-column: 1;
-  }
-
-  dd {
-    grid-column: 2;
-  }
-}
-.loc {
-  display: flex;
-  width: 0.5em;
-  aspect-ratio: 1;
-  background: steelblue;
-  border-radius: 50%;
 }
 
-dd {
+#files > div {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
+#files dt small {
+  display: block;
+  opacity: 0.6;
+}
+
+#files dd {
   grid-column: 2;
   display: flex;
   flex-wrap: wrap;
   align-items: start;
-  align-content: start;
   gap: 0.15em;
   padding-top: 0.6em;
   margin-left: 0;
+}
+.loc {
+  width: 0.5em;
+  aspect-ratio: 1;
+  background: var(--color);
+  border-radius: 50%;
 }
