@@ -7,6 +7,8 @@ let xScale;
 let yScale;
 let commits;
 let filteredCommits;
+let colors = d3.scaleOrdinal(d3.schemeTableau10);
+
 
 /* ---------- Step 1.1: load data ---------- */
 async function loadData() {
@@ -18,6 +20,36 @@ async function loadData() {
     date: new Date(row.date + 'T00:00' + row.timezone),
     datetime: new Date(row.datetime),
   }));
+}
+function renderFiles(filteredData) {
+  const files = d3
+    .groups(filteredData, (d) => d.file)
+    .map(([name, lines]) => ({ name, lines }))
+    .sort((a, b) => b.lines.length - a.lines.length);
+
+  const filesContainer = d3
+    .select('#files')
+    .selectAll('div')
+    .data(files, (d) => d.name)
+    .join((enter) =>
+      enter.append('div').call((div) => {
+        const dt = div.append('dt');
+        dt.append('code');
+        dt.append('small');
+        div.append('dd');
+      }),
+    );
+
+  filesContainer.select('dt > code').text((d) => d.name);
+  filesContainer.select('dt > small').text((d) => `${d.lines.length} lines`);
+
+  filesContainer
+    .select('dd')
+    .selectAll('div')
+    .data((d) => d.lines)
+    .join('div')
+    .attr('class', 'loc')
+    .attr('style', (d) => `--color: ${colors(d.type)}`);
 }
 
 /* ---------- Step 1.2: commit data ---------- */
@@ -341,28 +373,8 @@ function onTimeSliderChange() {
 
   renderCommitInfo(filteredData, filteredCommits);
   updateScatterPlot(data, filteredCommits);
+  renderFiles(filteredData);   // <- add this line
 }
 
 slider.addEventListener('input', onTimeSliderChange);
 onTimeSliderChange(); // draws everything the first time
-
-let filesContainer = d3
-filesContainer
-  .select('dd')
-  .selectAll('div')
-  .data((d) => d.lines)
-  .join('div')
-  .attr(style, (d) => "--color: ${colors(d.type)}");
-
-
-filesContainer.select("dt > code").text((d) => d.name);
-filesContainer.select("dd").text((d) => "${d.lines.length} lines");
-
-let files = d3
-  .groups(lines, (d) => d.file)
-  .map(([name, lines]) => {
-    return { name, lines };
-  })
-  .sort((a, b) => b.lines.length - a.lines.length);
-
-  let colors = d3.scaleOrdinal(d3.schemeTableau10);
