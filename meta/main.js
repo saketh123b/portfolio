@@ -347,15 +347,13 @@ slider.addEventListener('input', onTimeSliderChange);
 onTimeSliderChange(); // draws everything the first time
 
 let filesContainer = d3
-.select("#files")
-.selectAll("div")
-.data(files, (d) => d.name)
-.join((enter) =>
-  enter.append('div').call((div) => {
-    div.append('dt').append('code');
-    div.append('dd');
-  }),
-);
+filesContainer
+  .select('dd')
+  .selectAll('div')
+  .data((d) => d.lines)
+  .join('div')
+  .attr('class', 'loc');
+
 
 filesContainer.select("dt > code").text((d) => d.name);
 filesContainer.select("dd").text((d) => "${d.lines.length} lines");
