@@ -352,8 +352,17 @@ filesContainer
   .selectAll('div')
   .data((d) => d.lines)
   .join('div')
-  .attr('class', 'loc');
+  .attr(style, (d) => "--color: ${colors(d.type)}");
 
 
 filesContainer.select("dt > code").text((d) => d.name);
 filesContainer.select("dd").text((d) => "${d.lines.length} lines");
+
+let files = d3
+  .groups(lines, (d) => d.file)
+  .map(([name, lines]) => {
+    return { name, lines };
+  })
+  .sort((a, b) => b.lines.length - a.lines.length);
+
+  let colors = d3.scaleOrdinal(d3.schemeTableau10);
