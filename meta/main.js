@@ -180,12 +180,7 @@ function renderSelectionCount(selection) {
 
   return selectedCommits;
 }
-  document.querySelector('#selection-count').textContent = `${
-    selectedCommits.length || 'No'
-  } commits selected`;
-
-  return selectedCommits;
-}
+  
 
 function renderLanguageBreakdown(selection) {
   const selectedCommits = selection
