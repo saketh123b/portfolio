@@ -173,13 +173,13 @@ function renderSelectionCount(selection) {
   const selectedCommits = selection
     ? filteredCommits.filter((d) => isCommitSelected(selection, d))
     : [];
-    let lines = filteredCommits.flatMap((d) => d.lines);
-    let files = d3
-    .grouplines(lines, (d) => d.file)
-    .map(([name,lines])=> {
-      return {name, lines };
-    })
 
+  document.querySelector('#selection-count').textContent = `${
+    selectedCommits.length || 'No'
+  } commits selected`;
+
+  return selectedCommits;
+}
   document.querySelector('#selection-count').textContent = `${
     selectedCommits.length || 'No'
   } commits selected`;
