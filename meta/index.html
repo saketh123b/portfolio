@@ -15,12 +15,6 @@
   <h2>Summary stats</h2>
   <div id="stats"></div>
 
-  <h2>Commits by time of day</h2>
-  <label for="commit-slider" class="slider-label">
-    Show commits until:
-    <input type="range" id="commit-slider" min="0" max="100" value="100">
-    <time id="slider-time"></time>
-  </label>
 
   <div id="scrolly-1">
     <div id="scatter-story"></div>
@@ -50,6 +44,14 @@
 
   <h2>Files</h2>
   <dl id="files"></dl>
+
+  <h2>Commits by time of day</h2>
+  <label for="commit-slider" class="slider-label">
+    Show commits until:
+    <input type="range" id="commit-slider" min="0" max="100" value="100">
+    <time id="slider-time"></time>
+  </label>
+
 
   <script type="module" src="main.js"></script>
 </body>
