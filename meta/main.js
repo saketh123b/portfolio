@@ -1,5 +1,5 @@
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
-
+import scrollama from 'https://cdn.jsdelivr.net/npm/scrollama@3.2.0/+esm';
 const REPO = 'saketh123b/portfolio';
 
 // Shared at module level so helpers can use them
@@ -342,10 +342,13 @@ function updateScatterPlot(data, filteredCommits) {
     });
 }
 
+/* ---------- Run ---------- */
 const data = await loadData();
-commits = processCommits(data);
+// sorted so the story steps come out in date order
+commits = d3.sort(processCommits(data), (d) => d.datetime);
 filteredCommits = commits;
 
+/* ---------- Time control (slider + scrolling share this) ---------- */
 let commitProgress = 100;
 
 let timeScale = d3
@@ -358,10 +361,9 @@ let commitMaxTime = timeScale.invert(commitProgress);
 const slider = document.getElementById('commit-slider');
 const sliderTime = document.getElementById('slider-time');
 
-function onTimeSliderChange() {
-  commitProgress = Number(slider.value);
-
-  commitMaxTime = timeScale.invert(commitProgress);
+function updateToTime(time) {
+  commitMaxTime = time;
+  commitProgress = timeScale(time);
 
   sliderTime.textContent = commitMaxTime.toLocaleString('en', {
     dateStyle: 'long',
@@ -373,8 +375,52 @@ function onTimeSliderChange() {
 
   renderCommitInfo(filteredData, filteredCommits);
   updateScatterPlot(data, filteredCommits);
-  renderFiles(filteredData);   // <- add this line
+  renderFiles(filteredData);
+}
+
+function onTimeSliderChange() {
+  updateToTime(timeScale.invert(Number(slider.value)));
 }
 
 slider.addEventListener('input', onTimeSliderChange);
 onTimeSliderChange(); // draws everything the first time
+
+/* ---------- Scrollytelling ---------- */
+d3.select('#scatter-story')
+  .selectAll('.step')
+  .data(commits)
+  .join('div')
+  .attr('class', 'step')
+  .html(
+    (d, i) => `
+      On ${d.datetime.toLocaleString('en', {
+        dateStyle: 'full',
+        timeStyle: 'short',
+      })},
+      I made <a href="${d.url}" target="_blank" rel="noopener">${
+        i > 0 ? 'another glorious commit' : 'my first commit, and it was glorious'
+      }</a>.
+      I edited ${d.totalLines} lines across ${
+        d3.rollups(
+          d.lines,
+          (D) => D.length,
+          (f) => f.file,
+        ).length
+      } files.
+      Then I looked over all I had made, and I saw that it was very good.
+    `,
+  );
+
+function onStepEnter(response) {
+  const commit = d3.select(response.element).datum();
+  slider.value = timeScale(commit.datetime); // keep the slider in sync
+  updateToTime(commit.datetime);
+}
+
+const scroller = scrollama();
+scroller
+  .setup({
+    container: '#scrolly-1',
+    step: '#scrolly-1 .step',
+  })
+  .onStepEnter(onStepEnter);
